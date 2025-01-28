@@ -1,16 +1,7 @@
-from lib2to3.pgen2.tokenize import tokenize
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torch.nn.functional import embedding
 from torch.onnx.symbolic_opset11 import unsqueeze
-from torchtext.datasets import Multi30k
-from torchtext.data import Field, BucketIterator
-import numpy as np
-import spacy
-import random
-import treatment
+from treatment import *
+from utils import *
+
 
 class Encoder(nn.Module):
     def __init__(self, input_size, embedding_size, hidden_size, num_layers, dropout_rate):
@@ -57,7 +48,7 @@ class Seq2Seq(nn.Module):
     def forward(self, source, target, teacher_force_ratio=0.5):
         batch_size = source.shape[1]
         target_len = target.shape[0]
-        target_vocab_size = len(treatment.english.vocab)
+        target_vocab_size = len(english.vocab)
 
         outputs = torch.zeros(target_len, batch_size. target_vocab_size).to(device)
         hidden, cell = self.encoder(source)
