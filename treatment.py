@@ -1,14 +1,6 @@
-from lib2to3.pgen2.tokenize import tokenize
-
-import torch
-import torch.nn as nn
-import torch.optim as optim
 from torchtext.datasets import Multi30k
-from torchtext.data import Field, BucketIterator
-import numpy as np
+from torchtext.data import Field
 import spacy
-import random
-from torch.utils.tensorboard import SummaryWriter
 
 # load tokenizers
 spacy_ger = spacy.load('de')
