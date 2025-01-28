@@ -4,6 +4,18 @@ from utils import *
 
 
 class Encoder(nn.Module):
+    """
+    Seq2Seq model encoder. Would be responsible for receiving the german words and capture it's meaning to translate it
+    in the decoder
+
+    Parameters:
+        input_size (int): size of the input sequence(german vocabulary)
+        embedding_size (int): size of the embedding vector
+        hidden_size (int): size of the hidden layer
+        num_layers (int): number of LSTM layers in the encoder
+        dropout_rate (float): dropout probability
+    """
+
     def __init__(self, input_size, embedding_size, hidden_size, num_layers, dropout_rate):
         super(Encoder, self).__init__()
         self.hidden_size = hidden_size
@@ -20,6 +32,18 @@ class Encoder(nn.Module):
         return hidden, cell
 
 class Decoder(nn.Module):
+    """
+    Seq2Seq model decoder. Would be responsible for get the german words and translate it to english in the encoder
+
+    Parameters:
+        input_size (int): size of the input sequence(german vocabulary)
+        embedding_size (int): size of the embedding vector
+        hidden_size (int): size of the hidden layer
+        output_size (int): size of the output sequence(english vocabulary)
+        num_layers (int): number of LSTM layers in the encoder
+        dropout_rate (float): dropout probability
+    """
+
     def __init__(self, input_size, embedding_size, hidden_size, output_size, num_layers, dropout_rate):
         super(Decoder, self).__init__()
         self.hidden_size = hidden_size
@@ -40,6 +64,14 @@ class Decoder(nn.Module):
         return predictions, hidden, cell
 
 class Seq2Seq(nn.Module):
+    """
+    The translation model
+
+    Parameters:
+        encoder (Encoder): encoder model
+        decoder (Decoder): decoder model
+    """
+
     def __init__(self, encoder, decoder):
         super(Seq2Seq, self).__init__()
         self.encoder = encoder
